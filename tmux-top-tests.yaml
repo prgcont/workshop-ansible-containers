@@ -1,0 +1,37 @@
+---
+- name: Run tests of tmux-top
+  hosts: all
+  vars:
+    gopath: '/go'
+    repo_path: '{{ gopath }}/src/github.com/TomasTomecek/tmux-top'
+    ansible_bender:
+      base_image: "fedora:29"
+      # ansible_extra_args: "-vvv"
+
+      # working_container:
+      #   volumes:
+      #     - "{{ playbook_dir }}:/src"
+
+      target_image:
+        name: tmux-top-tests
+        environment:
+          GOPATH: '{{ gopath }}'
+  tasks:
+  - name: Install dependencies
+    package:
+      name:
+      - golang
+      - git-core
+      - make
+  - name: Initiate go structure
+    file:
+      state: directory
+      path: '{{ gopath }}/src/github.com/TomasTomecek/'
+  - name: Clone tmux-top
+    git:
+      repo: https://github.com/TomasTomecek/tmux-top.git
+      dest: '{{ repo_path }}'
+  - name: Run the tests
+    command: make test
+    args:
+      chdir: '{{ repo_path }}'
