@@ -9,6 +9,16 @@ see [this slide
 deck](https://tomastomecek.github.io/speaks/2019-prgcont-ansible-bender/#1).
 
 
+## Requirements
+
+* [buildah](https://github.com/containers/buildah/blob/master/install.md) is installed
+* [podman](https://github.com/containers/libpod/blob/master/install.md) is installed
+* [ansible-buildah](https://github.com/TomasTomecek/ansible-bender#installation) is installed
+* python 3.6+
+* base image with python (can be 2)
+* ansible 2.6+
+
+
 ## Containerizing your tests
 
 One of the common tasks in our team is to containerize our upstream test suite.
