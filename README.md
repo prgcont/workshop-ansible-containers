@@ -1,5 +1,14 @@
 # Building container images with Ansible
 
+This workshop introduces the concept of building container images by using
+Ansible playbooks as the definition format. We'll use
+[ansible-bender](https://github.com/TomasTomecek/ansible-bender) to do the job,
+which utilizes [ansible](https://github.com/ansible/ansible) and
+[buildah](https://github.com/containers/buildah) under the hood. For more info,
+see [this slide
+deck](https://tomastomecek.github.io/speaks/2019-prgcont-ansible-bender/#1).
+
+
 ## Containerizing your tests
 
 One of the common tasks in our team is to containerize our upstream test suite.
