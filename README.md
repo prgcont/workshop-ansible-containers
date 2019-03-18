@@ -53,5 +53,28 @@ $ make test
 
 Let's containerize static site generator - [Hugo](https://gohugo.io/).
 
-TBD
+The complete solution is available as [hugo.yaml](/hugo.yaml).
 
+If we wanted to run this container in rootless podman, we would need to have
+podman 1.1+ because port forwarding for rootless is available since this
+version.
+
+Let's run it in docker then! We need to push the image to dockerd first:
+```
+$ ansible-bender push docker-daemon:hugo:latest
+```
+
+Let's make sure that the metadata are correct:
+```
+$ docker inspect hugo
+```
+
+We can run hugo now:
+```
+$ docker run -p 80:80 hugo
+```
+
+...and use sen to check it out:
+```
+$ sen
+```
