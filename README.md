@@ -24,7 +24,7 @@ All we need to do is just write one Ansible playbook. Let's start with this one:
 ```
 
 Our task now is to clone the upstream repo -
-https://github.com/TomasTomecek/tmux-top/, and run the tests using `make tests.
+https://github.com/TomasTomecek/tmux-top/, and run the tests using `make tests`.
 
 For the complete solution, check [tmux-top-tests.yaml](/tmux-top-tests.yaml).
 
