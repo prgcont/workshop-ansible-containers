@@ -1,8 +1,8 @@
 # Building container images with Ansible
 
-This workshop introduces the concept of building container images by using
+This workshop introduces the concept of building container images using
 Ansible playbooks as the definition format. We'll use
-[ansible-bender](https://github.com/TomasTomecek/ansible-bender) to do the job,
+[ansible-bender](https://github.com/ansible-community/ansible-bender) to do the job,
 which utilizes [ansible](https://github.com/ansible/ansible) and
 [buildah](https://github.com/containers/buildah) under the hood. For more info,
 see [this slide
@@ -13,10 +13,15 @@ deck](https://tomastomecek.github.io/speaks/2019-prgcont-ansible-bender/#1).
 
 * [buildah](https://github.com/containers/buildah/blob/master/install.md) is installed
 * [podman](https://github.com/containers/libpod/blob/master/install.md) is installed
-* [ansible-buildah](https://github.com/TomasTomecek/ansible-bender#installation) is installed
+* [ansible-bender](https://github.com/ansible-community/ansible-bender#installation) is installed
 * python 3.6+
 * base image with python (can be 2)
 * ansible 2.6+
+
+
+We'll do two common use cases in this workshop:
+1. Containerizing a test suite.
+2. Running a web app in a container.
 
 
 ## Containerizing your tests
@@ -28,8 +33,10 @@ no matter where it runs.
 Let's run tests in a container for an existing project of mine:
 [tmux-top](https://github.com/TomasTomecek/tmux-top). It is written in Go.
 
-All we need to do is just write one Ansible playbook. Let's start with this one:
+All we need to do is just write one Ansible playbook. Let's use this for a
+start:
 ```yaml
+---
 - hosts: all
   vars:
     ansible_bender:
@@ -59,6 +66,7 @@ $ cd /go/src/github.com/TomasTomecek/tmux-top/
 $ make test
 ```
 
+
 ## Hugo in a container
 
 Let's containerize static site generator - [Hugo](https://gohugo.io/).
@@ -77,6 +85,7 @@ $ ansible-bender push docker-daemon:hugo:latest
 Let's make sure that the metadata are correct:
 ```
 $ docker inspect hugo
+$ podman inspect hugo
 ```
 
 We can run hugo now:
@@ -84,7 +93,7 @@ We can run hugo now:
 $ docker run -p 80:80 hugo
 ```
 
-...and use sen to check it out:
+...and use [sen](https://github.com/TomasTomecek/sen) to check it out:
 ```
 $ sen
 ```
