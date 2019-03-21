@@ -1,0 +1,27 @@
+---
+- name: Obtain hugo
+  hosts: all
+  vars:
+    site_path: /src
+    ansible_bender:
+      base_image: "fedora:29"
+      target_image:
+        name: hugo
+        working_dir: /src
+        cmd: "hugo server -wD --bind 0.0.0.0 --port 80"
+  tasks:
+  - name: Install hugo package
+    package:
+      name:
+      - hugo
+      - git-core
+  - name: Initiate new hugo site at {{ site_path }}
+    command: hugo new site {{ site_path }}
+  - name: Add a hugo theme
+    git:
+      repo: https://github.com/budparr/gohugo-theme-ananke.git
+      dest: '{{ site_path }}/themes/ananke'
+  - name: Use the theme
+    lineinfile:
+      line: 'theme = "ananke"'
+      path: '{{ site_path }}/config.toml'
